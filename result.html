@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title id="page-title">How old am I? - Result</title>
         <script type="application/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 let query = new URLSearchParams(window.location.search);
                 let birthTime = parseInt(query.get('birth-time'));
                 document.getElementById('name').innerText = query.get('name');
+                document.getElementById('page-title').innerText = `${query.get('name')}'s age`;
                 let ageElem = document.getElementById('age');
 
                 function formatSeconds(totalSeconds) {
