@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="application/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                let query = new URLSearchParams(window.location.search);
+                let birthTime = parseInt(query.get('birth-time'));
+                document.getElementById('name').innerText = query.get('name');
+                let ageElem = document.getElementById('age');
+
+                function formatSeconds(totalSeconds) {
+                    function plural(value) {
+                        return value === 1 ? "" : "s"
+                    }
+                    let weeks = Math.floor(totalSeconds / 604800);
+                    let days = Math.floor(totalSeconds / 86400) % 7;
+                    let hours = Math.floor(totalSeconds / 3600) % 24;
+                    let minutes = Math.floor(totalSeconds / 60) % 60;
+                    let seconds = totalSeconds % 60;
+                    return `${weeks} week${plural(weeks)}, ${days} day${plural(days)}, ${hours} hour${plural(hours)}, ${minutes} minute${plural(minutes)}, and ${seconds} second${plural(seconds)}`;
+                }
+                function updateAge() {
+                    let ageSeconds = Math.floor((Date.now() - birthTime) / 1000);
+                    ageElem.innerText = formatSeconds(ageSeconds);
+                }
+
+                updateAge();
+                setInterval(updateAge, 1000);
+            })
+        </script>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            #name {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <span id="name"></span>, your are <span id="age"></span> old.
+    </body>
+</html>
