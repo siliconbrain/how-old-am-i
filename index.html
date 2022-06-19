@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How old am I?</title>
+        <script type="application/javascript">
+            function go() {
+                let name = document.getElementById('name').value || "Anonymous";
+                let birthTime = getBirthTime();
+                location.assign(`./result.html?name=${encodeURIComponent(name)}&birth-time=${birthTime}`);
+            }
+            function updateButton() {
+                document.getElementById('submit').disabled = !getBirthTime();
+            }
+            function getBirthTime() {
+                return new Date(document.getElementById('birth-time').value).valueOf();
+            }
+        </script>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            header {
+                text-align: center;
+                margin-bottom: 1em;
+            }
+            header h1 {
+                font-size: 1em;
+                font-weight: bold;
+            }
+            header h2 {
+                font-size: 0.75em;
+                font-style: italic;
+                font-weight: normal;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1><a href="https://siliconbrain.github.io">siliconbrain</a>'s simple, ad-free, bookmarkable age calculator</h1>
+            <h2>Fill out the form below, click the button, bookmark the result page.</h2>
+        </header>
+        <div>
+            <label for=birth-time">When were you born?</label> <input id="birth-time" name="birth-time" type="datetime-local" onchange="updateButton()">
+        </div>
+        <div>
+            <label for="name">What is your name?</label> <input id="name" name="name" type="text" placeholder="Anonymous">
+        </div>
+        <div>
+            <button id="submit" onclick="go()" disabled="true">How old am I?</button>
+        </div>
+    </body>
+</html>
